@@ -13,13 +13,13 @@ export default function Navbar() {
       <Link href="/" className="text-2xl font-bold text-blue-400">Rezoorces</Link>
 
       <div className="flex space-x-6">
-        <Link href="/" className={isActive('/') ? 'bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
+        <Link href="/" className={isActive('/') ? ' cursor-pointer bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
           <IoHome /> Dashboard
         </Link>
-        <Link href="/animals" className={isActive('/animal') ? 'bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
+        <Link href="/animals" className={isActive('/animal') ? 'cursor-pointer bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
          <p> <GiElephant /> Animals</p> 
         </Link>
-        <Link href="/food" className={isActive('/food') ? 'bg-blue-600 px-3 py-2 rounded ' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
+        <Link href="/food" className={isActive('/food') ? 'cursor-pointer bg-blue-600 px-3 py-2 rounded ' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
           <IoFish /> Food
         </Link>
       </div>

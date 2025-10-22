@@ -83,7 +83,7 @@ app.post('/api/food', async (req, res) => {
 
     const newFood = new Food({
       name,
-      totalKg: parseFloat(totalKg),
+      totalKg,
       photoFoodUrl,
     });
 

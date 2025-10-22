@@ -1,12 +1,12 @@
+import { addAnimalAPI } from "@/services/api";
 import React, { useState } from "react";
-import axios from "axios";
-import e from "express";
+
 
 const AddAnimal = () => {
     const [formData, setFormData] = useState({
         name: "",
-        personalFoodIntake: "",
-        number: "",
+        personalFoodIntake: 0,
+        number: 1,
         photoAnimalUrl: "",
 
     });
@@ -15,16 +15,14 @@ const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 };
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
-
+async function handleSubmit() {
     try {
-        await axios.post("http://localhost:3000/api/animals",formData);
-        alert("✅ Animal adicionado com sucesso!");
-        setFormData({name: "", personalFoodIntake: "", number: "", photoAnimalUrl: "" });
+        await addAnimalAPI(formData);
+        alert("Animal adicionado com sucesso!");
+        setFormData({name: "", personalFoodIntake: 0, number: 1, photoAnimalUrl: "" });
     } catch (err) {
         console.error(err);
-        alert("❌ Erro ao adicionar animal")
+        alert("Erro ao adicionar animal")
     }
 };
 

@@ -1,27 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios"; 
+import { addFoodAPI } from '@/services/api';
 
 const AddFood = () => {
     const [formData, setFormData] = useState({
-    name: "" , 
-    totalKg: "",
-    photoFoodUrl: "",
+        name: "",
+        totalKg: 0,
+        photoFoodUrl: "",
     });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    async function handleSubmit() {
         try {
-            await axios.post("http://localhost:5000/api/foods", formData);
-            alert("✅ Comida adicionada com sucesso!");
-            setFormData({ name: "", totalKg: "", photoFoodUrl: ""});
+            await addFoodAPI(formData);
+            alert("Comida adicionada com sucesso!");
+            setFormData({ name: "", totalKg: 0, photoFoodUrl: "" });
         } catch (err) {
             console.error(err);
-            alert("❌ Erro ao adicionar comida");
+            alert("Erro ao adicionar comida");
         }
     };
 

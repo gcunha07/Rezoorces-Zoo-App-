@@ -62,7 +62,7 @@ export default function Produtos() {
             {produtos.map(produto => (
               <tr key={produto._id} className="border-b hover:bg-gray-50">
                 <td className="py-3 px-4 text-gray-900 font-medium">{produto.name}</td>
-                <td className="py-3 px-4 text-blue-600 font-bold">€{produto.animal}</td>
+                <td className="py-3 px-4 text-blue-600 font-bold">{produto.animal}</td>
                 <td className="py-3 px-4">
                   <div className="flex space-x-2">
                     <Link href={`/produto/${produto._id}`} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">

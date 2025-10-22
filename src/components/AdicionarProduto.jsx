@@ -61,7 +61,7 @@ export default function AdicionarProduto({ isOpen, onClose, onSuccess }) {
 
           <div className="flex space-x-3 pt-4">
             <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex-1">
-              Adicionar
+              Adicionar 
             </button>
             
             <button type="button" onClick={handleClose} className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 flex-1">

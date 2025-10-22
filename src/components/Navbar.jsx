@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { IoHome } from "react-icons/io5";
+import { GiElephant } from "react-icons/gi";
+import { IoFish } from "react-icons/io5";
 
 export default function Navbar() {
   const router = useRouter();
@@ -7,14 +10,17 @@ export default function Navbar() {
 
   return (
     <nav className="bg-slate-900 text-white p-4 flex justify-between items-center">
-      <Link href="/" className="text-2xl font-bold text-blue-400">🛒 TechStore</Link>
+      <Link href="/" className="text-2xl font-bold text-blue-400">Rezoorces</Link>
 
       <div className="flex space-x-6">
         <Link href="/" className={isActive('/') ? 'bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
-          🏠 Início
+          <IoHome /> Dashboard
         </Link>
-        <Link href="/produtos" className={isActive('/produtos') ? 'bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
-          🧾 Produtos
+        <Link href="/animals" className={isActive('/animal') ? 'bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
+         <p> <GiElephant /> Animals</p> 
+        </Link>
+        <Link href="/food" className={isActive('/food') ? 'bg-blue-600 px-3 py-2 rounded ' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
+          <IoFish /> Food
         </Link>
       </div>
     </nav>

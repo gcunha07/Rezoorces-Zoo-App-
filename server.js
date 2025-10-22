@@ -3,7 +3,6 @@ const next = require('next');
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./lib/mongodb');
-const Produto = require('./models/Animals');
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
@@ -12,81 +11,106 @@ app.use(cors());
 app.use(express.json());
 connectDB();
 
-
+const Animals = require('./models/Animals');
+const Food = require('./models/Food');
 
 // ===== ROTAS DA API REST =====
 
-// GET /api/produtos - Carregar todos os produtos
-app.get('/api/produtos', async (req, res) => {
+// GET /api/animals - Carregar todos os animais
+app.get('/api/animals', async (req, res) => {
   try {
-    const produtos = await Produto.find();  // Busca todos os produtos no MongoDB
-    res.json(produtos);
+    const animals = await Animals.find();  // Busca todos os animais no MongoDB
+    res.json(animals);
   } catch (error) {
-    console.error('Erro ao carregar produtos:', error);
+    console.error('Erro ao carregar animais:', error);
     res.status(500).json({ erro: 'Erro interno do servidor' });
   }
 });
 
-// GET /api/produtos/:id - Carregar um produto específico por ID
-app.get('/api/produtos/:id', async (req, res) => {
+// POST /api/animals - Criar novo animal
+app.post('/api/animals', async (req, res) => {
   try {
-    const produto = await Produto.findById(req.params.id);  // Busca produto pelo ID no MongoDB
-    if (!produto) return res.status(404).json({ erro: 'Produto não encontrado' });
-    res.json(produto);
-  } catch (error) {
-    console.error('Erro ao carregar produto:', error);
-    res.status(500).json({ erro: 'Erro interno do servidor' });
-  }
-});
+    const { name, dailyFoodIntake, number, photoAnimalUrl } = req.body;  // Extrai dados do body da requisição
 
-// POST /api/produtos - Criar novo produto
-app.post('/api/produtos', async (req, res) => {
-  try {
-    const { nome, preco } = req.body;  // Extrai dados do body da requisição
-    
-    const novoProduto = new Produto({
-      nome,
-      preco: parseFloat(preco)
+    const newAnimal = new Animals({
+      name,
+      dailyFoodIntake: parseFloat(dailyFoodIntake),
+      number,
+      photoAnimalUrl,
     });
-    
-    const produtoSalvo = await novoProduto.save();  // Guarda no MongoDB
-    res.status(201).json(produtoSalvo);
+
+    const savedAnimal = await newAnimal.save();  // Guarda no MongoDB
+    res.status(201).json(savedAnimal);
   } catch (error) {
-    console.error('Erro ao criar produto:', error);
+    console.error('Erro ao criar animal:', error);
     res.status(500).json({ erro: 'Erro interno do servidor' });
   }
 });
 
-// PUT /api/produtos/:id - Atualizar produto existente
-app.put('/api/produtos/:id', async (req, res) => {
+// PUT /api/animals/:id - Atualizar animal existente
+app.put('/api/animals/:id', async (req, res) => {
   try {
-    const produto = await Produto.findByIdAndUpdate(
+    const animal = await Animals.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true, runValidators: true }  // Retorna documento atualizado e executa validações
     );
-    
-    if (!produto) return res.status(404).json({ erro: 'Produto não encontrado' });
-    res.json(produto);
+
+    if (!animal) return res.status(404).json({ erro: 'Animal não encontrado' });
+    res.json(animal);
   } catch (error) {
-    console.error('Erro ao atualizar produto:', error);
+    console.error('Erro ao atualizar animal:', error);
     res.status(500).json({ erro: 'Erro interno do servidor' });
   }
 });
 
-// DELETE /api/produtos/:id - Eliminar produto
-app.delete('/api/produtos/:id', async (req, res) => {
+
+// GET /api/food - Carregar todas as comidas
+app.get('/api/food', async (req, res) => {
   try {
-    const produto = await Produto.findByIdAndDelete(req.params.id);
-    
-    if (!produto) return res.status(404).json({ erro: 'Produto não encontrado' });
-    res.json({ mensagem: 'Produto eliminado com sucesso' });
+    const food = await Food.find();  // Busca todas as comidas no MongoDB
+    res.json(food);
   } catch (error) {
-    console.error('Erro ao eliminar produto:', error);
+    console.error('Erro ao carregar comidas:', error);
     res.status(500).json({ erro: 'Erro interno do servidor' });
   }
 });
 
+// POST /api/food - Criar nova comida
+app.post('/api/food', async (req, res) => {
+  try {
+    const { name, totalKg, photoFoodUrl } = req.body;
+
+    const newFood = new Food({
+      name,
+      totalKg: parseFloat(totalKg),
+      photoFoodUrl,
+    });
+
+    const savedFood = await newFood.save();
+    res.status(201).json(savedFood);
+  } catch (error) {
+    console.error('Erro ao criar comida:', error);
+    res.status(500).json({ erro: 'Erro interno do servidor' });
+  }
+});
+
+// PUT /api/food/:id - Atualizar comida existente
+app.put('/api/food/:id', async (req, res) => {
+  try {
+    const food = await Food.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!food) return res.status(404).json({ erro: 'Comida não encontrada' });
+    res.json(food);
+  } catch (error) {
+    console.error('Erro ao atualizar comida:', error);
+    res.status(500).json({ erro: 'Erro interno do servidor' });
+  }
+});
 
 
 // ===== INICIALIZAÇÃO DO SERVIDOR =====

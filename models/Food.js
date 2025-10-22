@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const foodSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	totalKg: { type: Number, required: true },
-	fotoFoodUrl: { type: String, required: true },
+	photoFoodUrl: { type: String, required: true },
 }, {
 	versionKey: false
 });

@@ -1,107 +1,138 @@
-// GET /api/produtos - Carregar todos os produtos
-export async function carregarProdutosAPI() {
+// GET /api/animals - Carregar todos os animais
+export async function getAnimalsAPI() {
   try {
-    const response = await fetch('/api/produtos')
-    
+    const response = await fetch('/api/animals')
+
     if (!response.ok) {
       console.error('Erro na resposta:', response.status, response.statusText)
-      throw new Error('Erro ao carregar produtos')
+      throw new Error('Erro ao carregar animais')
     }
     
     const data = await response.json()
     return data
 
   } catch (error) {
-    console.error('Erro ao carregar produtos:', error)
+    console.error('Erro ao carregar animais:', error)
     throw error
   }
 }
 
-// GET /api/produtos/:id - Carregar um produto específico por ID
-export async function carregarProdutoPorIdAPI(id) {
+// POST /api/animals - Criar novo animal
+export async function addAnimalAPI(dataAnimal) {
   try {
-    const response = await fetch(`/api/produtos/${id}`)
-    
-    if (!response.ok) {
-      console.error('Erro na resposta:', response.status, response.statusText)
-      throw new Error('Erro ao carregar produto')
-    }
-    
-    const data = await response.json()
-    return data
-
-  } catch (error) {
-    console.error('Erro ao carregar produto:', error)
-    throw error
-  }
-}
-
-// POST /api/produtos - Criar novo produto
-export async function adicionarProdutoAPI(dadosProduto) {
-  try {
-    const response = await fetch('/api/produtos', {
+    const response = await fetch('/api/animals', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(dadosProduto)
+      body: JSON.stringify(dataAnimal)
     })
 
     if (!response.ok) {
       console.error('Erro na resposta:', response.status, response.statusText)
-      throw new Error('Erro ao adicionar produto')
+      throw new Error('Erro ao adicionar animal')
     }
     
     const resultado = await response.json()
     return resultado
 
   } catch (error) {
-    console.error('Erro ao adicionar produto:', error)
+    console.error('Erro ao adicionar animal:', error)
     throw error
   }
 }
 
-// PUT /api/produtos/:id - Atualizar produto existente
-export async function atualizarProdutoAPI(id, dadosProduto) {
+// PUT /api/animals/:id - Atualizar animal existente
+export async function putAnimalAPI(id, dataAnimal) {
   try {
-    const response = await fetch(`/api/produtos/${id}`, {
+    const response = await fetch(`/api/animals/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(dadosProduto)
+      body: JSON.stringify(dataAnimal)
     })
 
     if (!response.ok) {
       console.error('Erro na resposta:', response.status, response.statusText)
-      throw new Error('Erro ao atualizar produto')
+      throw new Error('Erro ao atualizar animal')
     }
     
     const resultado = await response.json()
     return resultado
 
   } catch (error) {
-    console.error('Erro ao atualizar produto:', error)
+    console.error('Erro ao atualizar animal:', error)
     throw error
   }
 }
 
-// DELETE /api/produtos/:id - Eliminar produto
-export async function eliminarProdutoAPI(id) {
+// GET /api/food - Carregar todas as comidas
+export async function getFoodAPI() {
   try {
-    const response = await fetch(`/api/produtos/${id}`, { 
-      method: 'DELETE' 
-    })
-    
+    const response = await fetch('/api/food')
+
     if (!response.ok) {
       console.error('Erro na resposta:', response.status, response.statusText)
-      throw new Error('Erro ao eliminar produto')
+      throw new Error('Erro ao carregar comidas')
     }
-
-    return true
+    
+    const data = await response.json()
+    return data
 
   } catch (error) {
-    console.error('Erro ao eliminar produto:', error)
+    console.error('Erro ao carregar comidas:', error)
     throw error
   }
 }
+
+// POST /api/food - Criar nova comida
+export async function addFoodAPI(dataFood) {
+  try {
+    const response = await fetch('/api/food', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataFood)
+    })
+
+    if (!response.ok) {
+      console.error('Erro na resposta:', response.status, response.statusText)
+      throw new Error('Erro ao adicionar comida')
+    }
+    
+    const resultado = await response.json()
+    return resultado
+
+  } catch (error) {
+    console.error('Erro ao adicionar comida:', error)
+    throw error
+  }
+}
+
+// PUT /api/food/:id - Atualizar comida existente
+export async function putFoodAPI(id, dataFood) {
+  try {
+    const response = await fetch(`/api/food/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataFood)
+    })
+
+    if (!response.ok) {
+      console.error('Erro na resposta:', response.status, response.statusText)
+      throw new Error('Erro ao atualizar comida')
+    }
+
+    const resultado = await response.json()
+    return resultado
+
+  } catch (error) {
+    console.error('Erro ao atualizar comida:', error)
+    throw error
+  }
+}
+

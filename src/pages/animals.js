@@ -43,11 +43,10 @@ export default function Produtos() {
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">🧾 Gestão de Produtos</h1>
-          <p className="text-gray-600">Gerencie todos os produtos da sua loja</p>
+          <h1 className="text-3xl font-bold text-gray-900">Animals Managemment</h1>
         </div>
         <button onClick={() => setShowAddModal(true)} className="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
-          ➕ Adicionar Produto
+          Add Animals
         </button>
       </div>
 
@@ -55,18 +54,15 @@ export default function Produtos() {
         <table className="min-w-full bg-white">
           <thead className="bg-gray-100">
             <tr>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">ID</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Nome</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Preço</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Ações</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">Name</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">Total Animals</th>
             </tr>
           </thead>
           <tbody>
             {produtos.map(produto => (
               <tr key={produto._id} className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 text-gray-900">{produto._id}</td>
-                <td className="py-3 px-4 text-gray-900 font-medium">{produto.nome}</td>
-                <td className="py-3 px-4 text-blue-600 font-bold">€{produto.preco}</td>
+                <td className="py-3 px-4 text-gray-900 font-medium">{produto.name}</td>
+                <td className="py-3 px-4 text-blue-600 font-bold">€{produto.animal}</td>
                 <td className="py-3 px-4">
                   <div className="flex space-x-2">
                     <Link href={`/produto/${produto._id}`} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">

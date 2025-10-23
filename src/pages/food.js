@@ -35,8 +35,7 @@ export default function Food() {
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">🧾 Gestão de Foods</h1>
-          <p className="text-gray-600">Gerencie todos os foods da sua loja</p>
+          <h1 className="text-3xl font-bold text-gray-900">Recursos</h1>
         </div>
         <button onClick={() => handleAddFood()} className="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
           ➕ Adicionar Food
@@ -58,7 +57,19 @@ export default function Food() {
               <tr key={food._id} className="border-b hover:bg-gray-50">
                 <td className="py-3 px-4 text-gray-900 font-medium">{food.name}</td>
                 <td className="py-3 px-4 text-blue-600 font-bold">{food.totalKg} kg</td>
-                <td className="py-3 px-4 text-blue-600 font-bold">{food.photoFoodUrl}</td>
+                <td className="py-3 px-4">
+                  {food.photoFoodUrl ? (
+                    <img
+                      src={food.photoFoodUrl}
+                      alt={food.name || 'food photo'}
+                      className="w-20 h-20 object-cover rounded"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 bg-gray-100 flex items-center justify-center text-sm text-gray-500 rounded">
+                      No image
+                    </div>
+                  )}
+                </td>
                 <td className="py-3 px-4">
                   <div className="flex space-x-2">
                     <button onClick={() => handleEditFood(food)} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { putFoodAPI } from '@/services/api'
 
-export default function EditarProduto({ isOpen, onClose, onSuccess, food }) {
+export default function EditFood({ isOpen, onClose, onSuccess, food }) {
   const [formData, setFormData] = useState({
     name: '',
     totalKg: 0,

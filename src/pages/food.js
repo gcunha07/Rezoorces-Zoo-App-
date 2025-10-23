@@ -47,10 +47,8 @@ export default function Food() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">🌾 Recursos Alimentares</h1>
-          <p className="text-gray-600">
-            Monitorize os recursos e saiba quando vão acabar
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">Recursos Alimentares</h1>
+
         </div>
         <button
           onClick={() => setShowAddModal(true)}

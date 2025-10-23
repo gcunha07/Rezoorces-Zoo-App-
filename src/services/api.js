@@ -30,7 +30,7 @@ export async function addAnimalAPI(dataAnimal) {
 
     if (!response.ok) {
       console.error('Erro na resposta:', response.status, response.statusText)
-      throw new Error('Erro ao adicionar animal')
+      throw new Error('Erro ao adicionar animalAPI')
     }
     
     const resultado = await response.json()

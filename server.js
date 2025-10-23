@@ -30,11 +30,11 @@ app.get('/api/animals', async (req, res) => {
 // POST /api/animals - Criar novo animal
 app.post('/api/animals', async (req, res) => {
   try {
-    const { name, dailyFoodIntake, number, photoAnimalUrl } = req.body;  // Extrai dados do body da requisição
+    const { name, personalFoodIntake, number, photoAnimalUrl } = req.body;  // Extrai dados do body da requisição
 
     const newAnimal = new Animals({
       name,
-      dailyFoodIntake: parseFloat(dailyFoodIntake),
+      personalFoodIntake: personalFoodIntake,
       number,
       photoAnimalUrl,
     });

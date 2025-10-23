@@ -2,40 +2,31 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import AdicionarProduto from '@/components/AdicionarProduto'
 import EditarProduto from '@/components/EditarProduto'
-import { carregarProdutosAPI, eliminarProdutoAPI } from '@/services/api'
+import { getAnimalsAPI } from '@/services/api'
+import AddAnimal from '@/components/AddAnimal'
 
-export default function Produtos() {
-  const [produtos, setProdutos] = useState([])
+export default function Animals() {
+  const [animals, setAnimals] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState(false)
-  const [produtoToEdit, setProdutoToEdit] = useState(null)
+  const [animalToEdit, setAnimalToEdit] = useState(null)
 
   useEffect(() => {
-    carregarProdutos()
+    getAnimals()
   }, [])
 
-  async function carregarProdutos() {
+  async function getAnimals() {
     try {
-      const data = await carregarProdutosAPI()
-      setProdutos(data)
+      const data = await getAnimalsAPI()
+      setAnimals(data)
     } catch (error) {
-      alert('Erro ao carregar produtos')
+      alert('Erro ao carregar animais')
     }
   }
 
-  async function eliminarProduto(id) {
-    if (confirm('Tens a certeza que queres eliminar este produto?')) {
-      try {
-        await eliminarProdutoAPI(id)
-        setProdutos(produtos.filter(p => p._id !== id))
-      } catch (error) {
-        alert('Erro ao eliminar produto')
-      }
-    }
-  }
 
-  function handleEditProduto(produto) {
-    setProdutoToEdit(produto)
+  function handleEditAnimal(animal) {
+    setAnimalToEdit(animal)
     setShowEditModal(true)
   }
 
@@ -43,7 +34,7 @@ export default function Produtos() {
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Animals Managemment</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Animals Management</h1>
         </div>
         <button onClick={() => setShowAddModal(true)} className="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
           Add Animals
@@ -54,25 +45,25 @@ export default function Produtos() {
         <table className="min-w-full bg-white">
           <thead className="bg-gray-100">
             <tr>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Name</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Total Animals</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">Animal</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">Comida diária por animal (kg/dia)</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">Total comida animais (kg/dia)</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">Total Animais</th>
+              <th className="py-3 px-4 text-left font-semibold text-gray-700">URL foto</th>
             </tr>
           </thead>
           <tbody>
-            {produtos.map(produto => (
-              <tr key={produto._id} className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 text-gray-900 font-medium">{produto.name}</td>
-                <td className="py-3 px-4 text-blue-600 font-bold">{produto.animal}</td>
+            {animals.map(animal => (
+              <tr key={animal._id} className="border-b hover:bg-gray-50">
+                <td className="py-3 px-4 text-gray-900 font-medium">{animal.name}</td>
+                <td className="py-3 px-4 text-gray-900 font-bold">{animal.personalFoodIntake}</td>
+                <td className="py-3 px-4 text-gray-900 font-bold">{(animal.personalFoodIntake * animal.number)}</td>
+                <td className="py-3 px-4 text-gray-900 font-bold">{animal.number}</td>
+                <td className="py-3 px-4 text-gray-900 font-bold">{animal.photoAnimalUrl}</td>
                 <td className="py-3 px-4">
                   <div className="flex space-x-2">
-                    <Link href={`/produto/${produto._id}`} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">
-                      Ver
-                    </Link>
-                    <button onClick={() => handleEditProduto(produto)} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">
+                    <button onClick={() => handleEditAnimal(animal)} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">
                       Editar
-                    </button>
-                    <button onClick={() => eliminarProduto(produto._id)} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">
-                      Eliminar
                     </button>
                   </div>
                 </td>
@@ -83,18 +74,20 @@ export default function Produtos() {
       </div>
 
       {/* Modals */}
-      <AdicionarProduto
+      <AddAnimal
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
-        onSuccess={carregarProdutos}
+        onSuccess={getAnimals}
       />
 
       <EditarProduto
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
-        onSuccess={carregarProdutos}
-        produto={produtoToEdit}
+        onSuccess={getAnimals}
+        animal={animalToEdit}
       />
     </div>
   )
 }
+
+

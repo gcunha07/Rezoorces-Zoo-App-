@@ -38,7 +38,7 @@ export default function EditarProduto({ isOpen, onClose, onSuccess, food }) {
   }
 
   function handleClose() {
-    setFormData({ nome, totalKg, photoFoodUrl })
+    setFormData({ name: '', totalKg: 0, photoFoodUrl: '' })
     onClose()
   }
 

@@ -57,7 +57,8 @@ export default function Food() {
             {foods.map(food => (
               <tr key={food._id} className="border-b hover:bg-gray-50">
                 <td className="py-3 px-4 text-gray-900 font-medium">{food.name}</td>
-                <td className="py-3 px-4 text-blue-600 font-bold">€{food.totalKg}</td>
+                <td className="py-3 px-4 text-blue-600 font-bold">{food.totalKg} kg</td>
+                <td className="py-3 px-4 text-blue-600 font-bold">{food.photoFoodUrl}</td>
                 <td className="py-3 px-4">
                   <div className="flex space-x-2">
                     <button onClick={() => handleEditFood(food)} className="bg-white border border-blue-600 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-50">

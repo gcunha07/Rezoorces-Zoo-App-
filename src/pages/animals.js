@@ -5,8 +5,6 @@ import AddAnimal from '@/components/AddAnimal'
 export default function Animals() {
   const [animals, setAnimals] = useState([])
   const [showAddModal, setShowAddModal] = useState(false)
-  const [showEditModal, setShowEditModal] = useState(false)
-  const [animalToEdit, setAnimalToEdit] = useState(null)
 
   useEffect(() => {
     getAnimals()
@@ -21,106 +19,94 @@ export default function Animals() {
     }
   }
 
-  function handleEditAnimal(animal) {
-    setAnimalToEdit(animal)
-    setShowEditModal(true)
-  }
-
   async function increaseAnimal(animal) {
     try {
       await putAnimalAPI(animal._id, { number: animal.number + 1 })
-      getAnimals() // recarrega a tabela
-    } catch (error) {
+      getAnimals()
+    } catch {
       alert('Erro ao aumentar número de animais')
     }
   }
 
   async function decreaseAnimal(animal) {
-    if (animal.number <= 1) return // evita valores negativos ou zero
+    if (animal.number <= 1) return
     try {
       await putAnimalAPI(animal._id, { number: animal.number - 1 })
       getAnimals()
-    } catch (error) {
+    } catch {
       alert('Erro ao diminuir número de animais')
     }
   }
 
-
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="bg-white rounded-xl shadow-lg p-8">
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Animals Management</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Animals</h1>
         </div>
-        <button onClick={() => setShowAddModal(true)} className="bg-white border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50">
-          Add Animals
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          ➕ Add Animal
         </button>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Animal</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Comida diária por animal (kg/dia)</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Total comida animais (kg/dia)</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Total Animais</th>
-              <th className="py-3 px-4 text-left font-semibold text-gray-700">Foto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {animals.map(animal => (
-              <tr key={animal._id} className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4 text-gray-900 font-medium">{animal.name}</td>
-                <td className="py-3 px-4 text-gray-900 font-bold">{animal.personalFoodIntake}</td>
-                <td className="py-3 px-4 text-gray-900 font-bold">{(animal.personalFoodIntake * animal.number)}</td>
-                <td className="py-3 px-4 text-gray-900 font-bold flex items-center space-x-2">
-                  <button
-                    onClick={() => decreaseAnimal(animal)}
-                    className="bg-gray-200 hover:bg-gray-300 px-2 rounded"
-                  >
-                    −
-                  </button>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {animals.map(animal => (
+          <div
+            key={animal._id}
+            className="bg-gray-50 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition p-4 flex flex-col items-center text-center"
+          >
+            <div className="w-28 h-28 rounded-full overflow-hidden bg-gray-100 mb-4 border">
+              {animal.photoAnimalUrl ? (
+                <img
+                  src={animal.photoAnimalUrl}
+                  alt={animal.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-500 text-sm">
+                  No photo
+                </div>
+              )}
+            </div>
 
-                  <span>{animal.number}</span>
+            <h2 className="text-lg font-semibold text-gray-900">{animal.name}</h2>
+            <p className="text-gray-600 text-sm mb-2">
+              Eats <strong>{animal.personalFoodIntake}</strong> kg/day
+            </p>
+            <p className="text-gray-800 font-bold mb-4">
+              Total daily: {(animal.personalFoodIntake * animal.number).toFixed(1)} kg
+            </p>
 
-                  <button
-                    onClick={() => increaseAnimal(animal)}
-                    className="bg-gray-200 hover:bg-gray-300 px-2 rounded"
-                  >
-                    +
-                  </button>
-                </td>
-
-                <td className="py-3 px-4">
-                  {animal.photoAnimalUrl ? (
-                    <img
-                      src={animal.photoAnimalUrl}
-                      alt={animal.name || 'animal photo'}
-                      className="w-20 h-20 object-cover rounded"
-                    />
-                  ) : (
-                    <div className="w-20 h-20 bg-gray-100 flex items-center justify-center text-sm text-gray-500 rounded">
-                      No image
-                    </div>
-                  )}
-                </td>
-
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            <div className="flex items-center justify-center space-x-3">
+              <button
+                onClick={() => decreaseAnimal(animal)}
+                className="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full text-lg font-bold"
+              >
+                −
+              </button>
+              <span className="text-gray-800 text-lg font-semibold w-6 text-center">
+                {animal.number}
+              </span>
+              <button
+                onClick={() => increaseAnimal(animal)}
+                className="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full text-lg font-bold"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Modals */}
+      {/* Modal de adicionar */}
       <AddAnimal
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
         onSuccess={getAnimals}
       />
-
     </div>
   )
 }
-
-

@@ -8,20 +8,49 @@ export default function Navbar() {
   const router = useRouter();
   const isActive = (path) => router.pathname === path;
 
-  return (
-    <nav className="bg-lime-900 text-white p-4 flex justify-between items-center">
-      <Link href="/" className="text-2xl font-bold text-white">Rezoorces</Link>
+  const linkBase =
+    'flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-all duration-200';
+  const activeLink = 'bg-green-700 text-white shadow-md';
+  const inactiveLink = 'text-green-50 hover:bg-green-800 hover:text-white';
 
-      <div className="flex space-x-6">
-        <Link href="/" className={isActive('/') ? ' cursor-pointer bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
-          <IoHome /> Dashboard
+  return (
+    <nav className="bg-gradient-to-r from-green-900 via-green-800 to-green-900 text-white px-6 shadow-lg flex justify-between items-center border-b-4 border-yellow-700">
+      {/* LOGO */}
+      <Link href="/" className="flex items-center space-x-2 text-2xl font-bold text-yellow-300">
+        <img src="/ZooTracker.png" alt="Rezoorces Logo" className="w-16 h-16" />
+        <span>ReZOOrces</span>
+      </Link>
+
+      {/* LINKS */}
+      <div className="flex space-x-4">
+        <Link
+          href="/"
+          className={`${linkBase} ${isActive('/') ? activeLink : inactiveLink}`}
+        >
+          <IoHome className="text-xl" />
+          <span>Dashboard</span>
         </Link>
-        <Link href="/animals" className={isActive('/animal') ? 'cursor-pointer bg-blue-600 px-3 py-2 rounded' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
-         <p> <GiElephant /> Animals</p> 
+
+        <Link
+          href="/animals"
+          className={`${linkBase} ${isActive('/animals') ? activeLink : inactiveLink}`}
+        >
+          <GiElephant className="text-xl" />
+          <span>Animais</span>
         </Link>
-        <Link href="/food" className={isActive('/food') ? 'cursor-pointer bg-blue-600 px-3 py-2 rounded ' : 'px-3 py-2 hover:bg-slate-700 rounded'}>
-          <IoFish /> Food
+
+        <Link
+          href="/food"
+          className={`${linkBase} ${isActive('/food') ? activeLink : inactiveLink}`}
+        >
+          <IoFish className="text-xl" />
+          <span>Comida</span>
         </Link>
+      </div>
+
+      {/* Decoração lateral */}
+      <div className="hidden sm:flex items-center space-x-2 text-yellow-300">
+        <span className="text-sm italic">Zoo Management</span>
       </div>
     </nav>
   );

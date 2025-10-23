@@ -29,14 +29,14 @@ button {
  padding: 0.5em 2em;
  border: transparent;
  box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
- background: dodgerblue;
+ background: #6F4E37;
  color: white;
  border-radius: 4px;
 }
 
 button:hover {
  background: rgb(2,0,36);
- background: linear-gradient(90deg, rgba(30,144,255,1) 0%, rgba(0,212,255,1) 100%);
+ background: linear-gradient(90deg, #B87333 0%, #B87333 100%);
 }
 
 button:active {
